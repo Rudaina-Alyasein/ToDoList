@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> <!-- تحميل الخط المزخرف -->
+
     <style>
         body {
-            background-color: #f8f9fa;
+            /* background-color: #f8f9fa; */
+            background-image: url('/leaves-folder.jpg');
+            background-size: cover; 
+           
+            background-attachment: fixed; 
+            background-repeat: no-repeat; 
+            margin: 0;
+            height: 100vh; 
         }
         .todo-container {
             max-width: 500px;
@@ -21,12 +31,45 @@
             text-align: center;
             color: #dc3545;
             margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive; /* تعيين الخط المزخرف */
+            font-size: 40px; /* تحديد حجم الخط */
+            animation: slideIn 1s ease-out; /* إضافة تأثير الأنيميشن */
+        }
+        
+        /* إضافة أنيميشن لتأثير الانتقال */
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+       .list-group h1 {
+            text-align: center;
+            color: #bb2d3b;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive; /* تعيين الخط المزخرف */
+            font-size: 50px; /* تحديد حجم الخط */
+            animation: fadeIn 1.5s ease-out; /* إضافة تأثير الأنيميشن */
+        }
+
+        /* تأثير الأنيميشن للعنوان */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
         .form-group label {
             font-weight: 600;
         }
         .btn-custom {
-            background-color: #dc3545;
+            background-color: #bb2d3b;
             border: none;
             width: 100%;
             padding: 10px;
@@ -39,20 +82,34 @@
         .alert{
             display: none;
         }
-        .taskIem:nth-child(2n){
-            background-color: #bb2d3b!important;
-            color:#eee;
+        .taskItem {
+            background-color: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-        /* .DeleteButton:nth-child(2n){
-            background-color:aqua!important;
-        } */
+        .taskItem:nth-child(2n) {
+           color: #f8f9fa;
+           background-color: #bb2d3b;
+        }
+        #tasksContainer {
+    height: 400px; /* تحديد ارتفاع الحاوية */
+    overflow-y: auto; /* تمكين التمرير العمودي إذا كانت المحتويات أكبر من الحجم المحدد */
+    border: 1px solid #ccc; /* حدود الحاوية */
+    padding: 10px; /* مسافة داخلية */
+}
+
+
     </style>
 </head>
 <body>
     <div id="alertMessage" class="alert alert-success" role="alert" style="display: none;">
         Task added successfully!
     </div>
-    <div class="todo-container">
+    <div class="todo-container" style="box-shadow: 0 0 5px #bb2d3b">
         <h2 class="todo-title">TO DO List</h2>
         <form id="ToDoListForm">
             <div class="mb-3">
@@ -74,44 +131,12 @@
             <button type="submit" class="btn btn-custom mt-3" style="color: #eee;">Add Task</button>
         </form>
     </div>
-    <div class="list-group" style="width: 50%; margin: auto;">
-        <h1 style="text-align: center; color: #dc3545; margin-bottom: 20px;">All Tasks</h1>
+    <div class="list-group" style="width: 50%; margin: auto; box-shadow: 0 0 5px #bb2d3b; ">
+        <h1  style="text-align: center; color: #bb2d3b; margin-bottom: 20px;">All Tasks</h1>
         <div id="tasksContainer"></div>
     </div>
-    <!-- Modal Edit Task -->
-<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editTaskForm">
-                    <div class="mb-3">
-                        <label for="Title" class="form-label">Task Title</label>
-                        <input type="text" class="form-control" id="Title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="startDate" class="form-label">Start Date</label>
-                        <input type="date" class="form-control" id="startDate" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="endDate" class="form-label">End Date</label>
-                        <input type="date" class="form-control" id="endDate" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-       
-       <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="project.js"></script>
 </body>
 </html>
